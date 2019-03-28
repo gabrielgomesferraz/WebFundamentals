@@ -1,14 +1,14 @@
 project_path: /web/tools/_project.yaml
 book_path: /web/tools/_book.yaml
-description: Learn how to view messages and run JavaScript in the Console.
+description: Learn how to run JavaScript in the Console.
 
-{# wf_updated_on: 2018-12-19 #}
+{# wf_updated_on: 2019-04-12 #}
 {# wf_published_on: 2018-03-08 #}
 {# wf_blink_components: Platform>DevTools #}
 
 {% include "web/tools/chrome-devtools/_shared/styles.html" %}
 
-# Get Started With The Console {: .page-title }
+# Get Started With Running JavaScript In The Console {: .page-title }
 
 {% include "web/_shared/contributors/kaycebasques.html" %}
 
