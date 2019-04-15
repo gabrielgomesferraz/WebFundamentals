@@ -2,16 +2,17 @@ project_path: /web/tools/_project.yaml
 book_path: /web/tools/_book.yaml
 description: Learn how to log messages to the Console.
 
-{# wf_updated_on: 2019-04-12 #}
-{# wf_published_on: 2019-04-11 #}
+{# wf_updated_on: 2019-04-19 #}
+{# wf_published_on: 2019-04-19 #}
 {# wf_blink_components: Platform>DevTools #}
+
+[expand]: /web/tools/chrome-devtools/images/shared/expand.png
 
 # Get Started With Logging Messages In The Console {: .page-title }
 
 {% include "web/_shared/contributors/kaycebasques.html" %}
 
-This interactive tutorial shows you how to log messages to the [Chrome DevTools](/web/tools/chrome-devtools/) Console.
-You'll learn how messages get to the Console, how to log messages from your JavaScript, and how to filter messages.
+This interactive tutorial shows you how to log and filter messages in the [Chrome DevTools](/web/tools/chrome-devtools/) Console.
 
 <figure>
   <img src="/web/tools/chrome-devtools/console/images/logexample.png"
@@ -22,6 +23,8 @@ You'll learn how messages get to the Console, how to log messages from your Java
 </figure>
 
 TODO prerequisites
+
+This tutorial is intended to be completed sequentially, from top to bottom.
 
 ## Set up the demo and DevTools {: #setup }
 
@@ -92,26 +95,70 @@ The browser logs messages to the Console, too. This usually happens when there's
 1. Click **Cause Error**. The browser logs an uncaught `TypeError` because the JavaScript is trying to update
    a DOM node that doesn't exist.
 
-TODO figure out violation demo
+1. Click the **Log Levels** dropdown and enable the **Verbose** option if it's disabled. You'll learn more
+   about filtering in the next section.
+
+1. Click **Cause Violation**. The page becomes unresponsive for a few seconds and then the browser logs
+   the message `[Violation] 'click' handler took 2999ms` to the Console. The exact duration may vary.
 
 ## Filter messages {: #filter }
 
 On some pages you'll see the Console get flooded with messages. DevTools provides
-many different ways to filter out messages that you don't care about.
+many different ways to filter out messages that aren't relevant to the task at hand.
 
-TODO log level
+### Filter by log level {: #level }
 
-TODO filter text box
+Each `console` method is assigned a severity level: `Verbose`, `Info`, `Warning`, or `Error`. For example,
+`console.log()` is an `Info`-level message, whereas `console.error()` is an `Error`-level message.
+
+1. Click the **Log Levels** dropdown and disable **Errors**. A level is disabled when there is no longer a
+   checkmark next to it. The `Error`-level messages disappear.
+1. Click the **Log Levels** dropdown again and re-enable **Errors**. The `Error`-level messages reappear.
+
+### Filter by text {: #text }
+
+When you want to only view messages that include an exact string, type that string into the **Filter** text box.
+
+1. Type `Dave` into the **Filter** text box.
+1. Delete `Dave` from the **Filter** text box.
+
+### Filter by regular expression {: #regex }
 
 [regex]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 
-TODO regex
+When you want to show all messages that include a pattern of text, rather than a specific string, use a
+[regular expression][regex]{: .external }.
 
-TODO sidebar
+1. Type `/^[AH]/` into the **Filter** text box. Type this pattern into [RegExr](https://regexr.com) for an
+   explanation of what it's doing.
+1. Delete `/^[AH]/` from the **Filter** text box. All messages are visible again.
 
-## Next steps {: #next-steps }
+### Filter by message source {: #source }
 
+[sidebar]: /web/tools/chrome-devtools/images/shared/show-console-sidebar.png
 
+1. Click **Show Console Sidebar** ![Show Console Sidebar][sidebar]{: .inline-icon }.
+1. Click **Expand** ![Expand][expand]{: .inline-icon } next to **12 Messages**. The
+   **Sidebar** shows a list of URLs that caused messages to be logged. For example, `log.js`
+   caused 11 messages.
+
+### Filter by user messages {: #user }
+
+Earlier, when you clicked **Log Info**, a script called `console.log('Hello, Console!')` in order to log
+`Hello, Console!` to the Console. Messages logged from JavaScript are called *user messages*. In contrast,
+when you clicked **Cause 404**, the browser logged an `Error`-level message stating that the requested
+resource could not be found. Messages like that are considered *browser messages*. You can use the Sidebar
+to filter out browser messages and only show user messages.
+
+1. Click **Expand** ![Expand][expand]{: .inline-icon } next to **9 User Messages**.
+1. Click **log.js**. The Console only shows messages that originated from `log.js`.
+1. Click **12 Messages** to show all messages again.
+
+## Next steps {: #next }
+
+* See [Console Reference](/web/tools/chrome-devtools/console/reference)
+* See [Console API Reference](/web/tools/chrome-devtools/console/api) to explore all of the
+  `console` methods.
 
 ## Feedback {: #feedback }
 
