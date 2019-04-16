@@ -22,20 +22,24 @@ This interactive tutorial shows you how to log and filter messages in the [Chrom
   </figcaption>
 </figure>
 
-TODO prerequisites
-
-This tutorial is intended to be completed sequentially, from top to bottom.
+This tutorial is intended to be completed in order. It assumes that you understand the fundamentals of web
+development, such as how to use JavaScript to add interactivity to a page.
 
 ## Set up the demo and DevTools {: #setup }
 
-This is an interactive tutorial. TODO learning
+This tutorial is designed so that you can open up the demo and try all the features yourself.
+This type of hands-on experience makes it more likely that you'll remember the features when you
+really need them.
 
 1. Open the demo.
-1. (Optional) Move the demo to a separate window.
+1. Optional: Move the demo to a separate window.
 1. Focus the demo and then press <kbd>Control</kbd>+<kbd>Shift</kbd>+<kdb>J</kbd> or
    <kbd>Control</kbd>+<kbd>Shift</kbd>+<kdb>J</kbd> (Mac) to open DevTools. By default DevTools opens to the
    right of the demo.
-1. (Optional) Dock DevTools to the bottom of the window or undock it into a separate window.
+
+[placement]: /web/tools/chrome-devtools/ui#placement
+
+1. Optional: [Dock DevTools to the bottom of the window or undock it into a separate window][placement].
 
 ## View messages logged from JavaScript {: #javascript }
 
@@ -43,9 +47,9 @@ Most messages that you see in the Console come from the web developers who wrote
 The goal of this section is to introduce you to the different message types that you're likely to see in the Console, and
 explain how you can log each message type yourself from your own JavaScript.
 
-1. Click the **Log Greeting** button in the demo. `Hello, Console!` gets logged to the Console.
+1. Click the **Log Info** button in the demo. `Hello, Console!` gets logged to the Console.
 
-1. Next to the `Hello, Console!` message in the Console click **log.js:X**. The Sources panel opens and highlights the
+1. Next to the `Hello, Console!` message in the Console click **log.js:2**. The Sources panel opens and highlights the
    line of code that caused the message to get logged to the Console. The message was logged when the page's JavaScript
    called `console.log('Hello, Console!')`.
 
@@ -59,44 +63,41 @@ explain how you can log each message type yourself from your own JavaScript.
 1. Click the **Log Warning** button in the demo. `Abandon Hope All Ye Who Enter` gets logged to the Console.
    Messages formatted like this are warnings.
 
-1. (Optional) Click **log.js:X** to view the code that caused the message to get formatted like this, and then navigate
-   back to Console when you're finished. Do this whenever you want to figure out why a message was logged in a certain way.
+1. Optional: Click **log.js:12** to view the code that caused the message to get formatted like this, and then navigate
+   back to Console when you're finished. Do this whenever you want to see the code that caused a message to get
+   logged a certain way.
 
 [trace]: https://en.wikipedia.org/wiki/Stack_trace
 
-1. Click the **Expand** icon in front of the `Log Warning` message in the Console. DevTools
-   shows the [stack trace][trace]{: .external } leading up to the call. When the button's `click` event listener
-   fired, it called `logWarning`, which in turn called `quoteDante`, which in turn called
-   `console.warn('Abandon Hope All Ye Who Enter')`. In other words, the call that happened first is at the
-   bottom of the trace. You can manually log stack traces at any time by calling `console.trace()`.
+1. Click the **Expand** ![Expand][expand]{: .inline-icon } icon in front of `Abandon Hope All Ye Who Enter`. DevTools
+   shows the [stack trace][trace]{: .external } leading up to the call.
 
-1. Click **Log Error**. `I'm sorry, Dave. I'm afraid I can't do that.` gets logged to the Console.
-   Messages formatted like this are errors.
+     The stack trace is telling you that a function named `logWarning`, which in turn called a
+     function named `quoteDante`. In other words, the call that happened first is at the bottom of the
+     stack trace. You can manually log stack traces at any time by calling `console.trace()`.
 
-1. Click **Log Table**. Log tables by calling `console.table(arrayOfObjects)`, where
-   `arrayOfObjects` is an array of objects with similar properties. For example, in **Figure X** each
-   object has a `first` and `last` property, so those columns are populated in each row. Only one of the objects
-   has a `birthday` property, so that column isn't populated in some of the rows.
+1. Click **Log Error**. The following error message gets logged: `I'm sorry, Dave. I'm afraid I can't do that.`
 
-1. Click **Log Group**. Log groups by calling `console.group(label)`,
-   where `label` is the name of the group. Any subsequent `console` call, such as `console.log('Leo')`, is
-   grouped together until `console.groupEnd(label)` is called. The `label` must be the same as before in order
-   to end the group.
+1. Click **Log Table**. A table about famous artists gets logged to the Console.
+   Note how the `birthday` column is only populated for one row. Check the code to figure out why that is.
 
-1. Click **Log Custom**. A message with custom formatting gets logged to the Console. 
+1. Click **Log Group**. 4 messages are grouped under the `Adolescent Irradiated Espionage Tortoises` label.
+
+1. Click **Log Custom**. A message with a red border and blue background gets logged to the Console.
 
 ## View messages logged by the browser {: #browser }
 
 The browser logs messages to the Console, too. This usually happens when there's a problem with the page.
 
 1. Click **Cause 404**. The browser logs a `404` network error because the page's JavaScript tried to
-   fetch a file that doesn't exist, `https://devtools.glitch.me/coffee`.
+   fetch a file that doesn't exist.
 
 1. Click **Cause Error**. The browser logs an uncaught `TypeError` because the JavaScript is trying to update
    a DOM node that doesn't exist.
 
 1. Click the **Log Levels** dropdown and enable the **Verbose** option if it's disabled. You'll learn more
-   about filtering in the next section.
+   about filtering in the next section. You need to do this to make sure that the next message you log
+   is visible.
 
 1. Click **Cause Violation**. The page becomes unresponsive for a few seconds and then the browser logs
    the message `[Violation] 'click' handler took 2999ms` to the Console. The exact duration may vary.
@@ -119,8 +120,9 @@ Each `console` method is assigned a severity level: `Verbose`, `Info`, `Warning`
 
 When you want to only view messages that include an exact string, type that string into the **Filter** text box.
 
-1. Type `Dave` into the **Filter** text box.
-1. Delete `Dave` from the **Filter** text box.
+1. Type `Dave` into the **Filter** text box. All messages that do not include the string `Dave` are hidden.
+   You might also see the `Adolescent Irradiated Espionage Tortoises` label. That's a bug.
+1. Delete `Dave` from the **Filter** text box. All the messages reappear.
 
 ### Filter by regular expression {: #regex }
 
@@ -135,30 +137,69 @@ When you want to show all messages that include a pattern of text, rather than a
 
 ### Filter by message source {: #source }
 
+When you want to only view the messages that came from a certain URL, use the **Sidebar**.
+
 [sidebar]: /web/tools/chrome-devtools/images/shared/show-console-sidebar.png
 
 1. Click **Show Console Sidebar** ![Show Console Sidebar][sidebar]{: .inline-icon }.
-1. Click **Expand** ![Expand][expand]{: .inline-icon } next to **12 Messages**. The
+1. Click the **Expand** ![Expand][expand]{: .inline-icon } icon next to **12 Messages**. The
    **Sidebar** shows a list of URLs that caused messages to be logged. For example, `log.js`
    caused 11 messages.
 
 ### Filter by user messages {: #user }
 
 Earlier, when you clicked **Log Info**, a script called `console.log('Hello, Console!')` in order to log
-`Hello, Console!` to the Console. Messages logged from JavaScript are called *user messages*. In contrast,
+the message to the Console. Messages logged from JavaScript like this are called *user messages*. In contrast,
 when you clicked **Cause 404**, the browser logged an `Error`-level message stating that the requested
-resource could not be found. Messages like that are considered *browser messages*. You can use the Sidebar
+resource could not be found. Messages like that are considered *browser messages*. You can use the **Sidebar**
 to filter out browser messages and only show user messages.
 
-1. Click **Expand** ![Expand][expand]{: .inline-icon } next to **9 User Messages**.
-1. Click **log.js**. The Console only shows messages that originated from `log.js`.
+1. Click **9 User Messages**. The browser messages are hidden.
 1. Click **12 Messages** to show all messages again.
+
+## Console Drawer {: #drawer }
+
+What if you're editing styles, but you need to quickly check the Console log for something? Use the Drawer.
+
+1. Click the **Elements** tab.
+1. Press <kbd>Escape</kbd>. The Console tab of the **Drawer** opens. It has all of the features
+   of the Console panel that you've been using throughout this tutorial.
 
 ## Next steps {: #next }
 
-* See [Console Reference](/web/tools/chrome-devtools/console/reference)
-* See [Console API Reference](/web/tools/chrome-devtools/console/api) to explore all of the
-  `console` methods.
+Congratulations, you have completed the tutorial. Click **Dispense Trophy** to receive your
+trophy.
+
+{% framebox width="auto" height="auto" enable_widgets="true" %}
+<style>
+  .note::before {
+    content: "";
+  }
+</style>
+<script>
+  var label = '/web/tools/chrome-devtools/console/log';
+  var feedback = {
+    "category": "Completion",
+    "choices": [
+      {
+        "button": {
+          "text": "Dispense Trophy"
+        },
+        "response": "🏆",
+        "analytics": {
+          "label": label
+        }
+      }
+    ]
+  };
+</script>
+{% include "web/_shared/multichoice.html" %}
+{% endframebox %}
+
+* See [Console Reference](/web/tools/chrome-devtools/console/reference) to explore more features and
+  workflows related to the Console UI.
+* See [Console API Reference](/web/tools/chrome-devtools/console/api) to learn more about all of the
+  `console` methods that were demonstrated in [View messages logged from JavaScript](#javascript).
 
 ## Feedback {: #feedback }
 
